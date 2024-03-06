@@ -2,6 +2,7 @@ package com.practice.first.employeepayrollnew.controller;
 
 import com.practice.first.employeepayrollnew.entity.Employee;
 import com.practice.first.employeepayrollnew.respository.IEmployeePayRollRepo;
+import com.practice.first.employeepayrollnew.services.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,33 +14,51 @@ import java.util.List;
 public class EmployeeController {
 
     @Autowired
-    IEmployeePayRollRepo repo;
+    IEmployeeService iEmployeeService;
     @GetMapping("/employees")
     public List<Employee> getAllEmployees(){
-        List<Employee> employees = repo.findAll();
-        return employees;
+        try{
+            List<Employee> allEmployee = iEmployeeService.getAllEmployee();
+            return allEmployee;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     @GetMapping("/employee/{id}")
     public Employee getEmployee(@PathVariable int id){
-        Employee employee = repo.findById(id).get();
-        return employee;
+        try{
+            Employee employee = iEmployeeService.getEmployee(id);
+            return employee;
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
+
     @PostMapping("/employee/add")
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public void createEmployee(@RequestBody Employee employee){
-        repo.save(employee);
+    public void addEmployee(@RequestBody Employee employee){
+        try{
+            iEmployeeService.addEmployee(employee);
+        }
+        catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
+
     @PutMapping("/employee/update/{id}")
-    public Employee updateEmployees(@PathVariable int id){
-        Employee employee = repo.findById(id).get();
-        employee.setAge(25);
-        repo.save(employee);
-        return employee;
+    public Employee updateEmployee(@PathVariable int id){
+        try{
+            return iEmployeeService.updateEmployee(id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @DeleteMapping("/employee/delete/{id}")
-    public void removeEmployee(@PathVariable int id){
-        Employee employee = repo.findById(id).get();
-        repo.delete(employee);
+    public void deleteEmployee(@PathVariable int id){
+        try{
+            iEmployeeService.deleteEmployee(id);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 }

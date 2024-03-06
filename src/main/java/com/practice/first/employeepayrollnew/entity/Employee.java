@@ -1,9 +1,16 @@
 package com.practice.first.employeepayrollnew.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
-
+@Data
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "employee")
 public class Employee {
@@ -24,73 +31,6 @@ public class Employee {
     private String notes;
     @Column(name = "age")
     private int age;
-
-    public Employee() {
-
-    }
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
-    }
-
-    public String getGender() {
-        return Gender;
-    }
-
-    public void setGender(String gender) {
-        Gender = gender;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    public String getSalary() {
-        return Salary;
-    }
-
-    public void setSalary(String salary) {
-        Salary = salary;
-    }
 
     @Override
     public String toString() {
